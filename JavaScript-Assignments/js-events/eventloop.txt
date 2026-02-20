@@ -1,0 +1,8 @@
+
+Topics
+
+EventLoops | why is js single threaded and synchronous
+
+Js is a single threaded synchronous language
+
+single threaded -> one task is executed at a time

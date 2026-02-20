@@ -1,0 +1,11 @@
+
+Responsive design in CSS means making a website look good on all screen sizes.
+
+            Media Queries
+
+        if(device length > 900px){
+            will apply this css
+        }
+        else if(device length < 900px && device lenth > 600px) {
+            i will apply this CSS
+        }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom</title>
+</head>
+<body>
+    <h1 style="background-color: orange; color: brown;" id="first">Strike is Coming on <span>12 jan 2023</span></h1>
+    <h2 id="second">It is coming on dhanteras</h2>
+
+    <ul>
+        <li>Fridge</li>
+        <li>Cooler</li>
+        <li>Press</li>
+    </ul>
+    
+</body>
+</html>
+
+<!-- Notes
+
+the task is to change "Strike is coming" to "Coder Army" using JS?
+how can i do it?
+
+DOM - Document Object Model
+
+<h1 style="background-color: orange; color: brown;" id="first">Strike is Coming</h1>
+<h2 id="second">It is coming on dhanteras</h2>
+
+To do that, you have to change the above elements to objects
+
+     temp =        {
+                    tagName: "h1",
+                    id: "first",
+                    style: {
+                        backgroundColor: "orange",
+                        color: "brown"
+                        }
+                    textContent: "Strike is coming"
+                    }
+
+    temp.textContent = "Hello Coder Army"
+    temp.style.backgroundColor = "pink"
+
+Do i need to convert to all elements to objects manually?
+Nah, the browser will do that automatically
+
+
+
+
+
+
+
+-->
