@@ -1,0 +1,13 @@
+
+NPM - Node Package Manager
+
+It is a package manager for JavaScript, primarily used for managing libraries and dependencies in Node.js 
+projects. NPM allows developers to easily install, update, and manage packages of resuable code
+
+Use of NPM
+
+1. Initializing a project -> npm init -y
+
+2. Running Scripts -> npm run test
+
+3. Installing external dependencies -> npm install chalk
