@@ -8,7 +8,7 @@ const { z } = require("zod");
 
 const JWT_SECRET = "WinterIsComing";
 
-mongoose.connect("mongodb+srv://s1ddhartha_reddy:i9a48n36@cluster0.liriy8b.mongodb.net/todo-app")
+mongoose.connect("")
 
 const app = express();
 
