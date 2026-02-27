@@ -1,0 +1,13 @@
+
+Why should you hash the passwords?
+Password hashing is a technique used to securely store passwords in a way that makes them difficult to recover or misuse. 
+Instead of stroing the actual password, you can store a hashed version of it.
+
+salt
+A popular approach to hashing passwords involves using a hashing algorithm that incorporates a salt - a random value
+added to the password before hashing. This prevents attackers from using precomputed tables to crack passowords.
+
+bycrypt
+It is cryptographic hashing algorithm designed for securely hashing passwords. Developed by Niels Provos and David Mazieres in 1999, bcrypt 
+incorporates a salt and is designed to be computationally expensive, making brute-force attacks more difficult.
+

@@ -1,11 +1,8 @@
 
-// Assignment
-// Creating an auth middleware
-// can you try creating a middleware called auth that verifies if a user is logged
-// in and ends the request early is the user isn't logged in?
+// create a todo application without using db
 
-const express = require("express")
-const jwt = require("jsonwebtoken")
+const express = require("express");
+const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = "WinterIsComing"
 
@@ -16,7 +13,7 @@ app.use(express.json());
 let users = [];
 
 app.get("/", (req, res)=>{
-    res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(__dirname + "/public/index-todo.html");
 })
 
 app.post("/signup", (req, res)=>{
@@ -25,7 +22,8 @@ app.post("/signup", (req, res)=>{
 
     users.push({
         username: username,  // in short -> username
-        password: password
+        password: password,
+        todos: []
     })
 
     res.json({
@@ -56,7 +54,7 @@ app.post("/signin", (req, res)=>{
             username
         }, JWT_SECRET);
 
-        res.header("jwt", token) // sending token via resS
+        res.header("jwt", token) // sending token via res
 
         res.json({
             token: token
@@ -92,6 +90,51 @@ app.get("/me", auth, (req, res)=>{
         username: foundUser.username,
         password: foundUser.password
     })
+})
+
+app.post("/todos", auth, (req, res)=>{
+
+    const todo = req.body.todo;
+
+    const user = users.find(user => user.username === req.username);
+
+    user.todos.push({
+        id: Date.now(),
+        title: todo,
+        completed: false
+    });
+
+    res.json({
+        message: "Todo added"
+    });
+})
+
+app.get("/todos", auth, (req, res) => {
+    const user = users.find(u => u.username === req.username);
+
+    res.json({
+        todos: user.todos
+    });
+});
+
+app.delete("/todos/:id", auth, (req, res)=>{
+    const user = users.find(user => user.username === req.username);
+
+    const todoId = parseInt(req.params.id);
+
+    const todoIndex = user.todos.findIndex(t => t.id === todoId);
+
+    if (todoIndex === -1) {
+        return res.status(404).json({
+            message: "Todo not found"
+        });
+    }
+
+    user.todos.splice(todoIndex, 1);
+
+    res.json({
+        message: "Todo deleted successfully"
+    });
 })
 
 app.listen(3000);

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo app</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
+    <script>
+        async function signup(){
+            const username = document.getElementById("signup-username").value;
+            const password = document.getElementById("signup-password").value;
+
+            // fetch / axios
+            await axios.post("http://localhost:3000/signup", {
+                username: username,
+                password: password
+            })
+            alert("You are signed in");
+        }
+
+        async function signin(){
+            const username = document.getElementById("signin-username").value;
+            const password = document.getElementById("signin-password").value;
+
+            // fetch / axios
+            const response = await axios.post("http://localhost:3000/signin", {
+                username: username,
+                password: password
+            });
+
+            // response = {data: {}, statusCode: 200, headers: ......}
+
+            localStorage.setItem("token", response.data.token);
+
+            alert("You are signed in");
+        }
+
+        async function getUserInformation(){
+            const response = await axios.get("http://localhost:3000/me", {
+                headers: {
+                    token: localStorage.getItem("token")
+                }
+            })
+            document.getElementById("information").innerHTML = "Username: " + response.data.username + " Password: " + response.data.password;
+        }
+        getUserInformation();
+
+        
+
+        function Logout() {
+                localStorage.removeItem("token");
+                document.getElementById("user-info").innerHTML = "";
+                document.getElementById("todo-list").innerHTML = "";
+                alert("Logged out");
+            }
+
+                    async function addTodo(){
+                        const todoText = document.getElementById("todo-input").value;
+
+                        if(!todoText) return alert("Enter a todo");
+
+                        try{
+                            await axios.post("http://localhost:3000/todos", 
+                                {todo: todoText},
+                                {headers: {
+                                    token: localStorage.getItem("token")
+                                }}
+                            );
+                            document.getElementById("todo-input").value = "";
+                            fetchTodos();
+                        }
+                        catch(err){
+                            alert("Error adding todo");
+                        }
+                    }
+
+                    async function fetchTodos() {
+                if (!getToken()) return;
+
+                try {
+                    const res = await axios.get(`${BASE_URL}/todos`, {
+                        headers: { token: getToken() }
+                    });
+
+                    const todoList = document.getElementById("todo-list");
+                    todoList.innerHTML = "";
+
+                    res.data.todos.forEach(todo => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `
+                            ${todo.title}
+                            <button onclick="deleteTodo(${todo.id})">Delete</button>
+                        `;
+                        todoList.appendChild(li);
+                    });
+
+                } catch (err) {
+                    console.log("Error fetching todos");
+                }
+            }
+
+            async function deleteTodo(id) {
+                try {
+                    await axios.delete(`${BASE_URL}/todos/${id}`, {
+                        headers: { token: getToken() }
+                    });
+
+                    fetchTodos();
+                } catch (err) {
+                    alert("Error deleting todo");
+                }
+            }
+
+            fetchUser();
+            fetchTodos();
+
+    </script>
+</head>
+<body>
+    <div id="signup">
+        <input id="signup-username" type="text" name="username" placeholder="Enter username">
+        <input id="signup-password" type="password" name="password" placeholder="Enter password">
+        <button onclick="signup()">Submit</button>
+    </div>
+    <div id="signin">
+        <input id="signin-username" type="text" name="username" placeholder="Enter username">
+        <input id="signin-password" type="password" name="password" placeholder="Enter password">
+        <button onclick="signin()">Submit</button>
+    </div>
+    <div>
+        User Information
+        <div id="information"></div>
+    </div>
+    <div>
+        <button onclick="Logout()">Logout</button>
+    </div>
+
+    <h2>Add Todo</h2>
+    <input id="todo-input" placeholder="Enter todo">
+    <button onclick="addTodo()">Add</button>
+
+    <h2>Your Todos</h2>
+    <ul id="todo-list"></ul>
+</body>
+</html>
