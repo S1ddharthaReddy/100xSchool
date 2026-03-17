@@ -1,0 +1,53 @@
+Step 1 - Types of languages
+
+1. Strongly typed vs loosely typed
+
+The terms strongly typed and loosely typed refer to how programming languages handle types, particularly how strict they are about type conversions and type safety.
+Strongly typed languages
+Examples - Java, C++, C, Rust
+    Benefits  
+-> Lesser runtime errors
+-> Stricter codebase
+-> Easy to catch errors at compile time
+
+Loosely typed languages
+Examples - Python, Javascript, Perl, php
+    Benefits
+-> Easy to write code
+-> Fast to bootstrap
+-> Low learning curve
+
+
+People realised that javascript is a very power language, but lacks types.
+Typescript was introduced as a new language to add types on top of javascript.
+
+
+
+    Compiled
+-> Convert high-level code(human readable) to low-level code (1s, 0s) 
+-> first compile, then run the code
+-> max errors are catched to compile time
+-> remaining errors are catched at runtime error
+
+    Not Compiled (Interpreted, JIT)
+-> no compilation, directly executed
+-> all errors are caught at runtime
+
+
+STEP 2 - What is Typescript
+
+TypeScript is a programming language developed and maintained by Microsoft. 
+It is a strict syntactical superset of JavaScript and adds optional static typing to the language.
+ 
+    Where/How does typescript code run?
+-> Typescript code never runs in your browser. Your browser can only understand javascript. 
+-> Javascript is the runtime language (the thing that actually runs in your browser/nodejs runtime)
+-> Typescript is something that compiles down to javascript
+-> When typescript is compiled down to javascript, you get type checking (similar to C++).
+    If there is an error, the conversion to Javascript fails. 
+
+    Typescript compiler
+tsc is the official typescript compiler that you can use to convert Typescript code into Javascript
+There are many other famous compilers/transpilers for converting Typescript to Javascript. Some famous ones are - 
+-> esbuild
+-> swc
