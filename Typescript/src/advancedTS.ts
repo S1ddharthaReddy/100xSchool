@@ -1,6 +1,6 @@
 // Advanced APIs
 
-// Pick
+//--------------------------- Pick ------------------------------
 
 // Pick allows you to create a new type by selecting a set of properties
 // [keys] from an existing type {Type}
@@ -30,7 +30,7 @@ function updateUser(updatedProps: UpdateProps) {
     // hit the database to update the user
 }
 
-// Partial
+//------------------------------- Partial-------------------------
 
 // Partial makes all properties of a type optional, creating a type with
 // same properties, but each marked as optional
@@ -42,7 +42,7 @@ function updateUser(updatedProps: UpdateProps) {
 type UpdatePropsOptional = Partial<UpdateProps>;
 
 
-// Readonly
+//------------------------- Readonly ------------------------------
 
 // When you have a configuration object that should not be altered
 // after initialization, making it Readonly ensures it properties
@@ -65,27 +65,58 @@ const user: Employee = {
 // Cannot assign to 'age' because it is a read-only property.
 
 
-// Record and Map
+//----------------------- Record and Map --------------------------
 
 // Record let's you give a cleaner type to objects
 // cleaner way to deal with objects
 
-type Userx = {
-    id: string;
-    username: string;
-}
+// type Userx = {
+//     id: string;
+//     username: string;
+// }
 
-type Users = {
-    [key: string]: Userx;
-}
+// type Users = {
+//     [key: string]: Userx;
+// }
+
+// const users: Users = {
+//     "ras@df": {
+//         id: '1',
+//         username: "vermax"
+//     },
+//     "rask34": {
+//         id:'2',
+//         username: "vermiathor"
+//     }
+// }
+
+type Users = Record<string, {age: number; name: string}>
 
 const users: Users = {
-    "ras@df": {
-        id: '1',
-        username: "vermax"
-    },
-    "rask34": {
-        id:'2',
-        username: "vermiathor"
-    }
+    "ras@ds": {age: 21, name: "Alex"},
+    "hdf@ws": {age: 25, name: "Liam"}
 }
+
+//------------------------ MAP--------------------------------
+
+const employees = new Map();
+employees.set("dee@gk", {name: "Euron", age: 45, email:"dee@gk"})
+
+const emp = employees.get("dee@gk");
+employees.delete("dee@gk")
+
+
+//------------------------ Exclude--------------------------
+
+// In a function that can accept several types of inputs but you want
+// to exclude specific types from being passed to it
+
+type EventType = 'click' | 'scroll' | 'mousemove';
+type ExcludeEvent = Exclude<EventType, 'scroll'>;
+
+const handleEvent = (event: ExcludeEvent) => {
+    console.log(`Handling event: ${event}`);
+};
+
+handleEvent('click'); // ok
+// handleEvent('scroll'); // Excluded, you cannot do this
