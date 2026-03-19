@@ -80,17 +80,31 @@ interface People {
 //     // }
 // }
 
+// class Manager implements People {
+
+//     name: string;
+//     age: number;
+//     number: string;
+
+//     constructor(name: string, age: number) {
+//         this.name = name;
+//         this.age = age;
+//         this.number = "1243674545";
+//     }
+
+//     isLegal(): boolean {
+//         return this.age > 18
+//     }
+// }
+
+// short hand for above
+
 class Manager implements People {
 
-    name: string;
-    age: number;
-    number: string;
-
-    constructor(name: string, age: number) {
-        this.name = name;
-        this.age = age;
-        this.number = "1243674545";
-    }
+    constructor(
+        public name: string,
+        public age: number,
+    ) {}
 
     isLegal(): boolean {
         return this.age > 18
@@ -99,4 +113,130 @@ class Manager implements People {
 
 
 let employee = new Manager("john", 30);
-console.log(employee.isLegal());
+// console.log(employee.isLegal());
+
+
+// follow up question - what is the difference between interfaces & abstract classes
+// abstract classes
+
+// abstract - do the implementation later
+
+abstract class Userr {
+    name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    abstract greet(): string;
+
+    hello() {
+        console.log("hii there");
+    }
+}
+
+class Employee extends Userr {
+    name: string;
+    constructor(name: string) {
+        super(name);
+        this.name = name;
+    }
+
+    greet() {
+        return "hii" + this.name
+    }
+}
+
+// TYPES
+
+// Very similar to interfaces, types let you aggregate data together
+
+// interface User3 {
+//     name: string
+//     age: number
+// }
+
+// type User4 = {
+//     name: string,
+//     age: number
+// }
+
+// you cannot implement type in classes
+
+// with types you do unions & intersections
+
+// UNIONS & INTERSECTIONS
+
+// Intersection
+
+type Employee1 = {
+    name: string;
+    startDate: string;
+}
+
+type Manager1 = {
+    name: string;
+    department: string;
+}
+
+type TeamLead = Employee1 & Manager1; // & -> intersection
+
+let e: Employee1 = {
+    name: "Gladiator",
+    startDate: "01-02-26"
+}
+
+let m: Manager1 = {
+    name: "Gladiator",
+    department: "IT"
+}
+
+let t: TeamLead = {
+    name: "Gladiator",
+    startDate: "01-02-26",
+    department: "IT"
+}
+
+// Union - |
+
+type GoodUser = {
+    name: string,
+    gift: string
+}
+
+type BadUser = {
+    name: string,
+    ip: string
+}
+
+// you can have either GoodUser or BadUser (or) BOTH
+// but in intersection - you need to have everything all
+
+type User5 = GoodUser | BadUser;
+
+let u: User5 = {
+    name: "Atradis",
+    gift: "Car",
+    ip: "134252352"
+}
+
+// interface vs types
+// create two types called User and Admin
+// create a function that takes either a user or an admin as an input
+// , and returns a string saying "Welcome, [name]"
+
+interface Admin {
+    name: string;
+    permissions: string;
+}
+
+interface User6 {
+    name: string;
+    age: number;
+}
+
+type UserOrAdmin = User | Admin
+
+function greetThem(user: UserOrAdmin) {
+    console.log(user.name);
+}
+
