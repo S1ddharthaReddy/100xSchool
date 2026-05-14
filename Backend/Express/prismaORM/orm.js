@@ -9,3 +9,5 @@
 // databases thanks to its intuitive data model, automated migrations, type-safety
 // & autocompletion
 
+// Installing prisma
+// npm install prisma typescript ts-node @types/node --save-dev
