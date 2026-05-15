@@ -1,0 +1,16 @@
+
+Websockets
+
+Websockets provide a way to establish a persistent, full-duplex communication channel over a
+single TCP connection between the client (typically a web browser) and the server
+
+client <--> server
+
+http uses a 3 way handshake - which is typically slow
+
+use cases of Websockets
+-> Real-Time applications: chat applications, real-time gaming,
+live sport updates, etc.
+-> Live-Feeds: news feeds, financial tickers
+-> Interactive Services: Live customer support chat, collaborative editing tools etc
+
